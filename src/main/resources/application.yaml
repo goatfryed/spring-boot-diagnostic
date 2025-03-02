@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            self:
+              - uri: http://localhost:8080
+                metadata:
+                  management.context-path: /actuator
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: env,configproperties,info,logfile,loggers,mappings,sbom,threaddump,heapdump,health
+  endpoint:
+    env:
+      show-values: always
+    configprops:
+      show-values: always
+    sbom:
+      access: unrestricted
