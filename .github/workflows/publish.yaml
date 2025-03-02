@@ -27,7 +27,7 @@ jobs:
           cat $GITHUB_ENV
 
       - name: Build Docker Image with bootBuildImage
-        run: ./gradlew bootBuildImage --imageName=$IMAGE_REPOSITORY --Pversion=$IMAGE_TAG
+        run: ./gradlew bootBuildImage --imageName=$IMAGE_REPOSITORY -Pversion=$IMAGE_TAG
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
