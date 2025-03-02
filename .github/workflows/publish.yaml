@@ -72,4 +72,7 @@ jobs:
             -Pversion=$IMAGE_TAG \
             -PrunImageName="$RUN_IMAGE_REPOSITORY:develop"
       - name: Push Docker Image
-        run: docker push $IMAGE_REPOSITORY --all-tags
+        run: |
+          docker tag $IMAGE_REPOSITORY $IMAGE_REPOSITORY:develop && \
+          docker tag $IMAGE_REPOSITORY $IMAGE_REPOSITORY:$IMAGE_TAG && \
+          docker push $IMAGE_REPOSITORY --all-tags
