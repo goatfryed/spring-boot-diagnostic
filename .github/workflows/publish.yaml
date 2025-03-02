@@ -70,6 +70,6 @@ jobs:
           ./gradlew bootBuildImage \
             --imageName=$IMAGE_REPOSITORY \
             -Pversion=$IMAGE_TAG
-            -PrunImageName=$RUN_IMAGE_REPOSITORY:$IMAGE_TAG
+            -PrunImageName="$RUN_IMAGE_REPOSITORY:develop"
       - name: Push Docker Image
         run: docker push $IMAGE_REPOSITORY --all-tags

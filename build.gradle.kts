@@ -56,8 +56,6 @@ tasks.register<Exec>("buildRunImage") {
 tasks.named<BootBuildImage>("bootBuildImage") {
   val imageRef = "goatfryed/${project.name}"
   imageName.set("$imageRef:${project.version}")
-  if (properties["buildPackPullPolicy"] != "always") {
-    pullPolicy.set(PullPolicy.IF_NOT_PRESENT)
-  }
+  pullPolicy.set(PullPolicy.IF_NOT_PRESENT)
   runImage.set(runImageName)
 }
