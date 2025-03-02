@@ -41,21 +41,23 @@ tasks.withType<Test> {
   useJUnitPlatform()
 }
 
-val runImageName = "localhost:5000/goatfryed/spring-boot-diagnostic-base:develop"
+val runImageName = properties["runImageName"]?.toString()
 
-tasks.register<Exec>("bootBuildRunImage") {
+tasks.register<Exec>("buildRunImage") {
   group = "build"
   description = "Builds the base run image for the application"
   commandLine(
-    "docker", "build", "-t", runImageName,
-    "${projectDir}/docker/base"
+    "docker", "build",
+    "-t", runImageName,
+    "${projectDir}/docker/run-image"
   )
 }
 
 tasks.named<BootBuildImage>("bootBuildImage") {
-  dependsOn("bootBuildRunImage")
   val imageRef = "goatfryed/${project.name}"
   imageName.set("$imageRef:${project.version}")
-  pullPolicy.set(PullPolicy.IF_NOT_PRESENT)
+  if (properties["buildPackPullPolicy"] != "always") {
+    pullPolicy.set(PullPolicy.IF_NOT_PRESENT)
+  }
   runImage.set(runImageName)
 }
